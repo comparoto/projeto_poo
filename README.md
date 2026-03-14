@@ -1,0 +1,29 @@
+# Conecta Arena 🏟️
+![logo](criar)
+
+O projeto Conecta Arena está sendo desenvolvido com o objetivo de criar uma aplicação web voltada para a Arena Pernambuco, visando solucionar o problema de baixa ocupação efetiva e subutilização do espaço. O sistema possibilitará a conexão entre a administração do equipamento público e os cidadãos, facilitando a divulgação de eventos culturais, esportivos e corporativos, além de permitir a compra de ingressos e a sugestão de novas atividades.
+
+## 📋 Índice
+
+* [Entrega 1](#entrega-1)
+* [Entrega 2](#entrega-2)
+* [Entrega 3](#entrega-3)
+* [Entrega 4](#entrega-4)
+---
+
+##  1️⃣ Entrega 1
+- [Histórias de Usuário - Trello](https://trello.com/invite/b/69b5ad890f480081a3a63e95/ATTI76b81e410917053603944cf5e5cfb8a0EAB22663/conecta-arena)
+- [Histórias de Usuário - Google Docs](https://docs.google.com/document/d/14mVCGJEfeiR7oN51TRB3UKwZIKDrzhR2z3nLTI25dKo/edit?usp=sharing)
+- [Protótipo Figma](adicionar)
+- [Screencast Protótipo Figma](adicionar//youtube)
+
+##  2️⃣ Entrega 2
+##  3️⃣ Entrega 3
+##  4️⃣ Entrega 4
+
+
+## 👩‍💻 Equipe 
+- [Iza Malafaia](https://github.com/Iza-Malafaia) 
+- [Juliana Comparoto](https://github.com/comparoto) 
+- [Joanna Farias](https://github.com/Joanna-Farias) 
+- [Maria Luiza](https://github.com/alumiria) 
