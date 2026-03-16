@@ -15,7 +15,7 @@ O projeto Conecta Arena está sendo desenvolvido com o objetivo de criar uma apl
 - [Histórias de Usuário - Trello](https://trello.com/invite/b/69b5ad890f480081a3a63e95/ATTI76b81e410917053603944cf5e5cfb8a0EAB22663/conecta-arena)
 - [Histórias de Usuário - Google Docs](https://docs.google.com/document/d/14mVCGJEfeiR7oN51TRB3UKwZIKDrzhR2z3nLTI25dKo/edit?usp=sharing)
 - [Protótipo Figma](https://www.figma.com/design/MF9wEsv166XqiNlBZGceJP/Conecta-Arena?node-id=3-485&t=LgbOso7bPJNhc88U-1)
-- [Screencast Protótipo Figma](adicionar//youtube)
+- [Screencast Protótipo Figma](https://youtu.be/1O8QA4T2W_Q?si=C8w6k2fqdcu9Mezj)
 
 ##  2️⃣ Entrega 2
 ##  3️⃣ Entrega 3
