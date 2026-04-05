@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav th:fragment="cabecalho" class="navbar">
+    <div class="container">
+        <a th:href="@{/}" class="logo-text">
+            <img th:src="@{/images/logo-conecta-arena.png}" alt="Logo" class="logo-img">
+            <div class="brand-text">CONECTA<span>ARENA</span></div>
+        </a>
+
+        <ul class="navbar-nav">
+            <li><a class="nav-link" th:href="@{/}">Home</a></li>
+            <li><a class="nav-link" href="#">Sobre</a></li>
+            <li><a class="nav-link" th:href="@{/}">Eventos</a></li>
+            <li><a class="nav-link" href="#">Sugestões</a></li>
+        </ul>
+
+        <div class="navbar-actions">
+            <th:block th:if="${session.usuarioLogado == null}">
+                <a href="#" class="btn login-link">Login</a>
+                <a href="#" class="btn cadastro-link">Cadastre-se</a>
+            </th:block>
+
+            <th:block th:if="${session.usuarioLogado != null}">
+                <span class="nav-user-info" th:text="'Olá, ' + ${session.usuarioLogado.nome}"></span>
+                <a href="/logout" class="btn login-link btn-logout">Sair</a>
+            </th:block>
+        </div>
+    </div>
+</nav>
+
+</body>
+</html>

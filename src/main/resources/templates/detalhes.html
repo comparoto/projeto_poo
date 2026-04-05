@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head th:replace="~{fragments :: head}">
+    <title>Conecta Arena </title>
+</head>
+<body>
+
+<div th:replace="~{fragments :: cabecalho}"></div>
+
+<div class="container">
+    <div class="event-detail-card">
+        <img th:src="${evento.urlImagem}" class="event-detail-img" alt="Banner">
+
+        <div class="card-body">
+            <span class="card-category" th:text="${evento.categoria}">CATEGORIA</span>
+            <h1 class="detail-title" th:text="${evento.titulo}"></h1>
+
+            <div class="event-info">
+                <p class="detail-info-text">📅 Data: <span th:text="${#temporals.format(evento.data, 'dd/MM/yyyy - HH:mm')}"></span></p>
+                <p class="detail-location-text">🏟️ Local: Arena Pernambuco</p>
+            </div>
+
+            <div class="detail-actions">
+                <form th:action="@{/api/ingressos/comprar}" method="post">
+                    <input type="hidden" name="eventoId" th:value="${evento.id}">
+                    <input type="hidden" name="usuarioId" value="1">
+
+                    <button type="button" class="btn btn-purchase" disabled>
+                        <span>COMPRAR INGRESSO (EM BREVE)</span>
+                    </button>
+                </form>
+
+                <a th:href="@{/}" class="btn-back">← Voltar para a programação</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
