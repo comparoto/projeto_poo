@@ -18,6 +18,14 @@ O projeto Conecta Arena está sendo desenvolvido com o objetivo de criar uma apl
 - [Screencast Protótipo Figma](https://youtu.be/1O8QA4T2W_Q?si=C8w6k2fqdcu9Mezj)
 
 ##  2️⃣ Entrega 2
+
+- Implementação de 2 HU✔️
+- [Deploy de acompanhamento](https://conecta-arena.onrender.com)
+- [Screencast 2 HU](add)
+- Issues atualizado ✔️
+![logo](issue.png)
+
+
 ##  3️⃣ Entrega 3
 ##  4️⃣ Entrega 4
 
