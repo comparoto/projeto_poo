@@ -1,5 +1,5 @@
 # Conecta Arena 🏟️
-![logo](src/main/resources/static/images/logo-conecta-arena.png)
+![logo](logo-conecta-arena-readme.png)
 
 O projeto Conecta Arena está sendo desenvolvido com o objetivo de criar uma aplicação web voltada para a Arena Pernambuco, visando solucionar o problema de baixa ocupação efetiva e subutilização do espaço. O sistema possibilitará a conexão entre a administração do equipamento público e os cidadãos, facilitando a divulgação de eventos culturais, esportivos e corporativos.
 
