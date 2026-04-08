@@ -11,13 +11,13 @@ O projeto Conecta Arena está sendo desenvolvido com o objetivo de criar uma apl
 * [Entrega 4](#entrega-4)
 ---
 
-##  1️⃣ Entrega 1
+## Entrega 1
 
 - [Histórias de Usuário - Google Docs](https://docs.google.com/document/d/14mVCGJEfeiR7oN51TRB3UKwZIKDrzhR2z3nLTI25dKo/edit?usp=sharing)
 - [Protótipo Figma](https://www.figma.com/design/MF9wEsv166XqiNlBZGceJP/Conecta-Arena?node-id=3-485&t=LgbOso7bPJNhc88U-1)
 - [Screencast Protótipo Figma](https://youtu.be/1O8QA4T2W_Q?si=C8w6k2fqdcu9Mezj)
 
-##  2️⃣ Entrega 2
+##  Entrega 2
 
 - Implementação de 2 HU✔️
 - [Deploy de acompanhamento](https://conecta-arena.onrender.com)
@@ -26,8 +26,8 @@ O projeto Conecta Arena está sendo desenvolvido com o objetivo de criar uma apl
 ![logo](issue.png)
 
 
-##  3️⃣ Entrega 3
-##  4️⃣ Entrega 4
+##  Entrega 3
+##  Entrega 4
 
 
 ## 👩‍💻 Equipe 
