@@ -20,15 +20,20 @@ O projeto Conecta Arena está sendo desenvolvido com o objetivo de criar uma apl
 ##  Entrega 2
 
 - Implementação de 2 HU✔️
-- [Deploy de acompanhamento](https://conecta-arena.onrender.com)
 - [Screencast 2 HU](https://youtu.be/ehbncqpZdrE)
 - Issues atualizado ✔️
-![logo](issue.png)
-
 
 ##  Entrega 3
+
+- Implementação de 2 HU✔️
+- [Screencast 2 HU](adicionar)
+- Issues atualizado ✔️
+  
 ##  Entrega 4
 
+
+### Issues/Bug Tracker
+![issues](issues.png)
 
 ## 👩‍💻 Equipe 
 - [Iza Malafaia](https://github.com/Iza-Malafaia) 
