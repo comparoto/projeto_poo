@@ -1,40 +1,116 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
 <head th:replace="~{fragments :: head}">
-    <title>Conecta Arena </title>
+    <title>Conecta Arena - Detalhes</title>
 </head>
 <body>
 
 <div th:replace="~{fragments :: cabecalho}"></div>
 
 <div class="container">
+
+    <div th:if="${msgSucesso}" class="alert alert-success" style="margin-top: 20px;" th:text="${msgSucesso}"></div>
+    <div th:if="${msgErro}" class="alert alert-danger" style="margin-top: 20px;" th:text="${msgErro}"></div>
+
     <div class="event-detail-card">
-        <img th:src="${evento.urlImagem}" class="event-detail-img" alt="Banner">
+        <img th:src="${evento.urlImagem}" class="event-detail-img" alt="Banner do Evento">
 
         <div class="card-body">
             <span class="card-category" th:text="${evento.categoria}">CATEGORIA</span>
-            <h1 class="detail-title" th:text="${evento.titulo}"></h1>
+            <h1 class="detail-title" th:text="${evento.titulo}">Título do Evento</h1>
 
             <div class="event-info">
                 <p class="detail-info-text">📅 Data: <span th:text="${#temporals.format(evento.data, 'dd/MM/yyyy - HH:mm')}"></span></p>
                 <p class="detail-location-text">🏟️ Local: Arena Pernambuco</p>
+                <p>🎟️ Vagas disponíveis: <span th:text="${evento.capacidadeMaxima - evento.ingressosVendidos}"></span></p>
+                <p style="font-size: 1.3rem; font-weight: 700; color: #28a745; margin-top: 10px;">
+                    R$ <span th:text="${#numbers.formatDecimal(evento.preco, 1, 'POINT', 2, 'COMMA')}">0,00</span>
+                </p>
             </div>
 
-            <div class="detail-actions">
-                <form th:action="@{/api/ingressos/comprar}" method="post">
-                    <input type="hidden" name="eventoId" th:value="${evento.id}">
-                    <input type="hidden" name="usuarioId" value="1">
+            <div class="detail-actions" style="margin-top: 30px;">
 
-                    <button type="button" class="btn btn-purchase" disabled>
-                        <span>COMPRAR INGRESSO (EM BREVE)</span>
-                    </button>
-                </form>
+                <div th:unless="${comprando}">
+                    <a th:href="@{/eventos/{id}(id=${evento.id}, comprando=true)}"
+                       class="btn btn-purchase"
+                       style="background-color: #222; color: white; display: block; text-align: center; border: none; text-decoration: none; padding: 15px; border-radius: 25px; font-weight: bold;">
+                        COMPRAR INGRESSO
+                    </a>
+                </div>
 
-                <a th:href="@{/}" class="btn-back">← Voltar para a programação</a>
+                <div th:if="${comprando}" class="purchase-confirm-box"
+                     style="background: #f9f9f9; padding: 25px; border-radius: 15px; border: 1px solid #ddd; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+
+                    <h4 style="margin-bottom: 20px; text-align: center; color: #222;">Finalizar Pagamento</h4>
+
+                    <form th:action="@{/eventos/comprar}" method="post">
+                        <input type="hidden" name="eventoId" th:value="${evento.id}">
+                        <input type="hidden" name="usuarioId" value="1">
+                        <input type="hidden" id="precoUnitario" name="precoUnitario" th:value="${evento.preco}">
+
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 5px;">Quantidade:</label>
+                            <input type="number" id="inputQuantidade" name="quantidade" value="1" min="1" max="5"
+                                   style="padding: 10px; border-radius: 8px; border: 1px solid #ccc; width: 100%;">
+                        </div>
+
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 5px;">Forma de Pagamento:</label>
+                            <select name="formaPagamento"
+                                    style="padding: 10px; border-radius: 8px; border: 1px solid #ccc; width: 100%; background: white;">
+                                <option value="PIX">Pix (Aprovação Instantânea)</option>
+                                <option value="CARTÃO">Cartão de Crédito</option>
+                                <option value="BOLETO">Boleto Bancário</option>
+                            </select>
+                        </div>
+
+                        <div style="margin-bottom: 20px; padding: 15px; background: #eee; border-radius: 10px; text-align: center;">
+                            <span style="font-size: 0.9rem; color: #666;">Total a pagar:</span><br>
+                            <strong style="font-size: 1.5rem; color: #28a745;">R$ <span id="valorTotalExibido" th:text="${#numbers.formatDecimal(evento.preco, 1, 'POINT', 2, 'COMMA')}"></span></strong>
+                        </div>
+
+                        <button type="submit" class="btn"
+                                style="background-color: #FF8C00; color: white; width: 100%; border: none; padding: 15px; border-radius: 25px; font-weight: bold; cursor: pointer;">
+                            CONFIRMAR E PAGAR
+                        </button>
+                    </form>
+
+                    <a th:href="@{/eventos/{id}(id=${evento.id})}"
+                       style="display: block; text-align: center; margin-top: 15px; color: #999; font-size: 0.85rem; text-decoration: none;">
+                        Cancelar compra
+                    </a>
+                </div>
+
+                <a th:href="@{/eventos}" class="btn-back" style="margin-top: 25px; display: block; color: #FF8C00; font-weight: bold; text-decoration: none;">
+                    ← Voltar para a programação
+                </a>
             </div>
         </div>
     </div>
 </div>
+
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        const inputQtde = document.getElementById('inputQuantidade');
+        const precoUnit = parseFloat(document.getElementById('precoUnitario').value);
+        const displayTotal = document.getElementById('valorTotalExibido');
+
+        if (inputQtde) {
+            inputQtde.addEventListener('input', function() {
+                let qtde = parseInt(this.value);
+                if (isNaN(qtde) || qtde < 1) qtde = 1;
+                if (qtde > 5) qtde = 5; // Limite de segurança
+
+                const total = qtde * precoUnit;
+
+                displayTotal.innerText = total.toLocaleString('pt-BR', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+            });
+        }
+    });
+</script>
 
 </body>
 </html>

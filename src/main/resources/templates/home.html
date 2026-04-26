@@ -7,25 +7,26 @@
 
 <div th:replace="~{fragments :: cabecalho}"></div>
 
-<div class="banner-section"></div>
+<div th:if="${paginaAtiva == 'home'}" class="banner-section"></div>
 
 <div class="container">
-    <div class="events-content">
+    <div th:class="${paginaAtiva == 'home'} ? 'events-content' : 'events-only'">
+
         <div class="events-column">
             <div class="filters-container">
-                <a th:href="@{/}"
+                <a th:href="@{${paginaAtiva == 'home' ? '/' : '/eventos'}(categoria='Todos')}"
                    th:classappend="${categoriaSelecionada == 'Todos'} ? 'active' : ''"
                    class="filter-btn">Todos</a>
 
-                <a th:href="@{/(categoria='Cultural')}"
+                <a th:href="@{${paginaAtiva == 'home' ? '/' : '/eventos'}(categoria='Cultural')}"
                    th:classappend="${categoriaSelecionada == 'Cultural'} ? 'active' : ''"
                    class="filter-btn">Cultural</a>
 
-                <a th:href="@{/(categoria='Esportivo')}"
+                <a th:href="@{${paginaAtiva == 'home' ? '/' : '/eventos'}(categoria='Esportivo')}"
                    th:classappend="${categoriaSelecionada == 'Esportivo'} ? 'active' : ''"
                    class="filter-btn">Esportivo</a>
 
-                <a th:href="@{/(categoria='Corporativo')}"
+                <a th:href="@{${paginaAtiva == 'home' ? '/' : '/eventos'}(categoria='Corporativo')}"
                    th:classappend="${categoriaSelecionada == 'Corporativo'} ? 'active' : ''"
                    class="filter-btn">Corporativo</a>
             </div>
@@ -54,7 +55,7 @@
             </div>
         </div>
 
-        <aside class="sidebar">
+        <aside th:if="${paginaAtiva == 'home'}" class="sidebar">
             <div class="suggestion-box">
                 <h5>ALGUMA IDEIA DE EVENTO?</h5>
                 <p>Ajude-nos a tornar a Arena Pernambuco ainda mais incrível!</p>

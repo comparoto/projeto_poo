@@ -15,16 +15,18 @@ public class Evento {
     private String categoria;
     private Integer capacidadeMaxima;
     private Integer ingressosVendidos = 0;
-    private String urlImagem; // <-- ADICIONE ISSO
+    private String urlImagem;
+    private double preco;
 
     public Evento() {}
 
-    public Evento(String titulo, LocalDateTime data, String categoria, Integer capacidade, String urlImagem) {
+    public Evento(String titulo, LocalDateTime data, String categoria, Integer capacidade, String urlImagem, double preco) {
         this.titulo = titulo;
         this.data = data;
         this.categoria = categoria;
         this.capacidadeMaxima = capacidade;
         this.urlImagem = urlImagem;
+        this.preco = preco;
         this.ingressosVendidos = 0;
     }
 
@@ -47,4 +49,14 @@ public class Evento {
     public Integer getCapacidadeMaxima() { return capacidadeMaxima; }
     public Integer getIngressosVendidos() { return ingressosVendidos; }
     public String getUrlImagem() { return urlImagem; }
+    public double getPreco() { return preco; } // <-- ESSENCIAL PARA O THYMELEAF
+
+    // setters
+    public void setPreco(double preco) { this.preco = preco; }
+    public void setTitulo(String titulo) { this.titulo = titulo; }
+    public void setData(LocalDateTime data) { this.data = data; }
+    public void setCategoria(String categoria) { this.categoria = categoria; }
+    public void setCapacidadeMaxima(Integer capacidadeMaxima) { this.capacidadeMaxima = capacidadeMaxima; }
+    public void setIngressosVendidos(Integer ingressosVendidos) { this.ingressosVendidos = ingressosVendidos; }
+    public void setUrlImagem(String urlImagem) { this.urlImagem = urlImagem; }
 }

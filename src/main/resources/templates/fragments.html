@@ -15,23 +15,22 @@
         </a>
 
         <ul class="navbar-nav">
-            <li><a class="nav-link" th:href="@{/}">Home</a></li>
+            <li>
+                <a class="nav-link" th:href="@{/}"
+                   th:classappend="${paginaAtiva == 'home' ? 'active' : ''}">Home</a>
+            </li>
             <li><a class="nav-link" href="#">Sobre</a></li>
-            <li><a class="nav-link" th:href="@{/}">Eventos</a></li>
+            <li>
+                <a class="nav-link" th:href="@{/eventos}"
+                   th:classappend="${paginaAtiva == 'eventos' ? 'active' : ''}">Eventos</a>
+            </li>
             <li><a class="nav-link" href="#">Sugestões</a></li>
         </ul>
 
-        <div class="navbar-actions">
-            <th:block th:if="${session.usuarioLogado == null}">
-                <a href="#" class="btn login-link">Login</a>
-                <a href="#" class="btn cadastro-link">Cadastre-se</a>
-            </th:block>
-
-            <th:block th:if="${session.usuarioLogado != null}">
-                <span class="nav-user-info" th:text="'Olá, ' + ${session.usuarioLogado.nome}"></span>
-                <a href="/logout" class="btn login-link btn-logout">Sair</a>
-            </th:block>
-        </div>
+    </div>
+    <div class="navbar-actions">
+        <a href="#" class="btn login-link">Login</a>
+        <a href="#" class="btn cadastro-link">Cadastre-se</a>
     </div>
 </nav>
 

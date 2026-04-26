@@ -45,74 +45,89 @@ button {
 .navbar {
     background-color: white;
     border-bottom: 2px solid #eee;
-    padding: 15px 0;
+    padding: 10px 0;
     position: fixed;/* navbar fixa e estatica  */
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
-
-/* organizando o CONECTAARENA e logo */
-.logo-text{
+    height: 80px;
     display: flex;
-    align-items: center; /* logo e texto no centro vertical */
-    gap: 12px; /* espaço entre a logo e o texto */
-    text-decoration: none;
+    align-items: center;
 }
-
-/* arrumando a logo */
-.logo-img {
-    height: 45px;
-    width: 65px;
-    aspect-ratio: auto;
-    margin-right: 5px;
-    margin-left:5px;
-}
-
-/* arrumando o CONECTAARENA*/
-.brand-text {
-    font-weight: 700;
-    font-size: 1.5rem;
-    color: #FF8C00; /* laranjinha*/
-    line-height: 1; /* pro texto nn empurrar a altura da navbar */
-    letter-spacing: -1px;
-}
-
-.brand-text span {
-    color: #222; /* mudando a cor de ARENA */
-}
-
 
 .navbar .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+}
+
+/* organizando o CONECTAARENA e logo */
+.logo-text{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.logo-img {
+    height: 45px;
+    width: auto;
+    margin-right: 5px;
+    margin-left:5px;
+}
+
+.brand-text {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #FF8C00;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+.brand-text span {
+    color: #222;
 }
 
 /* a propria barra de navegacao entre paginas */
 .navbar-nav {
+    flex: 2;
     display: flex;
-    gap: 20px;
+    justify-content: center;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-link {
     font-weight: 500;
     color: #555;
+    transition: 0.3s;
 }
 .nav-link:hover {
     color: #FF8C00;
 }
 
-/* login e cadastro */
-.navbar-actions {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+.nav-link.active {
+    color: #FF8C00 !important;
+    font-weight: bold;
+    border-bottom: 3px solid #FF8C00;
+    padding-bottom: 5px;
 }
 
-/* config do usuario logado no fragmento */
+/* login e cadastro */
+.navbar-actions {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+    white-space: nowrap;
+}
+
 .nav-user-info {
     font-weight: 600;
     margin-right: 10px;
@@ -129,12 +144,11 @@ button {
     padding: 10px 25px;
     font-weight: 600;
     transition: 0.3s;
-    display: inline-block; /* padding e transform p links */
+    display: inline-block;
     text-decoration: none;
     text-align: center;
 }
 
-/* botoes de login e cadastro */
 .btn.login-link {
     font-weight: 600;
     color: #222;
@@ -155,7 +169,7 @@ button {
     transform: scale(1.05);
 }
 
-/* -banner foto arena home*/
+/* banner foto arena home*/
 .banner-section {
     background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
     url('../images/banner-arena.jpg');
@@ -166,20 +180,26 @@ button {
     margin-bottom: 40px;
 }
 
-/* parte de eventos */
+/* parte de eventos (Layout com Sidebar) */
 .events-content {
     display: grid;
-    grid-template-columns: 3fr 1fr; /* 3 p eventos, 1 p sugestão */
+    grid-template-columns: 3fr 1fr;
     gap: 30px;
     margin-top: 30px;
 }
 
-/* filtros  */
+/* layout sem sidebar para a página de eventos */
+.events-only {
+    display: block;
+    width: 100%;
+    margin-top: 30px;
+}
+
 .filters-container {
     display: flex;
     gap: 10px;
     margin-bottom: 30px;
-    overflow-x: auto; /* rola se tiver mtos filtros em tela pequena */
+    overflow-x: auto;
     padding-bottom: 10px;
 }
 
@@ -197,19 +217,12 @@ button {
     color: white; border-color: #FF8C00;
 }
 
-.filter-btn:hover:not(.active) {
-    border-color: #FF8C00;
-    color: #FF8C00;
-}
-
-/* grid dos cartoes de evento */
 .events-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* responsivo automatico */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 25px;
 }
 
-/* cartoes dos eventos */
 .event-card {
     border: none;
     border-radius: 15px;
@@ -218,7 +231,7 @@ button {
     background: white;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     display: flex;
-    flex-direction: column; /* alinha o footer dps */
+    flex-direction: column;
 }
 
 .event-card:hover {
@@ -258,7 +271,6 @@ button {
     background: transparent;
 }
 
-/* botao de compra caso haja espaco no evento */
 .btn-purchase {
     background-color: #222;
     color: white;
@@ -283,7 +295,7 @@ button {
     padding: 30px;
     border-radius: 10px;
     text-align: center;
-    grid-column: 1 / -1; /* pega todas as colunas do grid */
+    grid-column: 1 / -1;
 }
 
 /* sidebar */
@@ -300,18 +312,6 @@ button {
     border-radius: 20px;
     padding: 25px;
 }
-
-.suggestion-box h5 {
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 10px;
-}
-.suggestion-box p {
-    color: #777;
-    font-size: 0.85rem;
-    text-align: center;
-    margin-bottom: 20px; }
-
 /* espaco para digitar tipo form */
 .form-control {
     width: 100%;
