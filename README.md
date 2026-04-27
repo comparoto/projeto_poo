@@ -31,6 +31,9 @@ O projeto Conecta Arena está sendo desenvolvido com o objetivo de criar uma apl
   
 ##  Entrega 4
 
+- Implementação de 2 HU✔️
+- [Screencast 2 HU](https://youtu.be/B6rHQ9kq4Ng?si=u_bWBBYaRXmBuEIK)
+- Issues atualizado ✔️
 
 ### Issues/Bug Tracker
 ![issues](issues.png)
