@@ -38,6 +38,10 @@ O projeto Conecta Arena está sendo desenvolvido com o objetivo de criar uma apl
 ### Issues/Bug Tracker
 ![issues](issues.png)
 
+#### Relatório Evolutivo
+- [Relatório](https://docs.google.com/document/d/1HQrfCskFHfdq33UlZEy46uq7AfxOLlP3F9qMNpJru8o/edit?tab=t.0)
+
+
 ## 👩‍💻 Equipe 
 - [Iza Malafaia](https://github.com/Iza-Malafaia) 
 - [Juliana Comparoto](https://github.com/comparoto) 
