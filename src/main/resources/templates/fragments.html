@@ -9,28 +9,65 @@
 
 <nav th:fragment="cabecalho" class="navbar">
     <div class="container">
-        <a th:href="@{/}" class="logo-text">
+        <a href="" class="logo-text">
             <img th:src="@{/images/logo-conecta-arena.png}" alt="Logo" class="logo-img">
             <div class="brand-text">CONECTA<span>ARENA</span></div>
         </a>
 
         <ul class="navbar-nav">
-            <li>
-                <a class="nav-link" th:href="@{/}"
-                   th:classappend="${paginaAtiva == 'home' ? 'active' : ''}">Home</a>
-            </li>
-            <li><a class="nav-link" href="#">Sobre</a></li>
-            <li>
-                <a class="nav-link" th:href="@{/eventos}"
-                   th:classappend="${paginaAtiva == 'eventos' ? 'active' : ''}">Eventos</a>
-            </li>
-            <li><a class="nav-link" href="#">Sugestões</a></li>
+            <th:block th:if="${session.usuarioLogado != null and 'ADMIN'.equalsIgnoreCase(session.usuarioLogado.perfil)}">
+                <li>
+                    <a class="nav-link" th:href="@{/admin/dashboard}"
+                       th:classappend="${paginaAtiva == 'dashboard'} ? 'active' : ''">Painel Visão Geral</a>
+                </li>
+                <li>
+                    <a class="nav-link" th:href="@{/admin/eventos/listar}"
+                       th:classappend="${paginaAtiva == 'eventos-admin'} ? 'active' : ''">Eventos Cadastrados</a>
+                </li>
+                <li>
+                    <a class="nav-link" th:href="@{/admin/eventos/novo}"
+                       th:classappend="${paginaAtiva == 'cadastro-evento'} ? 'active' : ''">Cadastrar Evento</a>
+                </li>
+            </th:block>
+
+            <th:block th:if="${session.usuarioLogado == null or !'ADMIN'.equalsIgnoreCase(session.usuarioLogado.perfil)}">
+                <li>
+                    <a class="nav-link" th:href="@{/}"
+                       th:classappend="${paginaAtiva == 'home'} ? 'active' : ''">Home</a>
+                </li>
+                <li>
+                    <a class="nav-link" th:href="@{/sobre}"
+                       th:classappend="${paginaAtiva == 'sobre'} ? 'active' : ''">Sobre</a>
+                </li>
+                <li>
+                    <a class="nav-link" th:href="@{/eventos}"
+                       th:classappend="${paginaAtiva == 'eventos'} ? 'active' : ''">Eventos</a>
+                </li>
+                <li>
+                    <a class="nav-link" th:href="@{/visitas/agendar}"
+                       th:classappend="${paginaAtiva == 'agendamento'} ? 'active' : ''">Agendamentos</a>
+                </li>
+
+            </th:block>
         </ul>
 
-    </div>
-    <div class="navbar-actions">
-        <a href="#" class="btn login-link">Login</a>
-        <a href="#" class="btn cadastro-link">Cadastre-se</a>
+        <div class="navbar-actions">
+            <th:block th:if="${session.usuarioLogado == null}">
+                <a th:href="@{/login}" class="btn login-link">Login</a>
+                <a th:href="@{/cadastro}" class="btn cadastro-link">Cadastre-se</a>
+            </th:block>
+
+            <th:block th:if="${session.usuarioLogado != null}">
+                <span class="nav-user-info" th:text="${session.usuarioLogado.email}">jogador@email.com</span>
+
+                <a th:href="${'ADMIN'.equalsIgnoreCase(session.usuarioLogado.perfil)} ? @{/admin/dashboard} : @{/usuario/dashboard}"
+                   class="user-avatar-btn" title="Meu Perfil">
+                    <div class="user-icon-circle">👤</div>
+                </a>
+
+                <a th:href="@{/logout}" class="btn btn-outline-dark btn-logout">Sair</a>
+            </th:block>
+        </div>
     </div>
 </nav>
 

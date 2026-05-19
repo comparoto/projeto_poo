@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}">
+    <title>Gestão de Eventos - ConectaArena</title>
+</head>
+<body>
+
+<div th:replace="~{fragments :: cabecalho}" th:with="paginaAtiva='eventos-admin'"></div>
+
+<div class="container">
+    <div class="suggestion-box">
+        <h2 class="card-title">Eventos Cadastrados</h2>
+        <p class="event-info">Lista completa de todos os eventos ativos e encerrados no banco de dados.</p>
+
+        <div class="table-container dash-table-scroll">
+            <table class="dash-table admin-table-view">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Evento</th>
+                    <th>Data</th>
+                    <th>Vagas</th>
+                    <th>Preço</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="evento : ${eventos}">
+                    <td th:text="${evento.id}">1</td>
+                    <td class="label-bold" th:text="${evento.titulo}">Nome do Evento</td>
+                    <td th:text="${#temporals.format(evento.data, 'dd/MM/yyyy HH:mm')}">Data</td>
+                    <td th:text="${evento.ingressosVendidos} + ' / ' + ${evento.ingressosDisponiveis}">0 / 40000</td>
+                    <td th:text="'R$ ' + ${#numbers.formatDecimal(evento.preco, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div th:if="${eventos.isEmpty()}" class="alert alert-warning mt-20">
+            Nenhum evento localizado no banco de dados.
+        </div>
+
+        <div class="view-more-container">
+            <a th:href="@{/admin/eventos/novo}" class="btn btn-purchase center-text">+ Cadastrar Novo Evento</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 ConectaArena. Todos os direitos reservados.</p>
+</footer>
+
+</body>
+</html>

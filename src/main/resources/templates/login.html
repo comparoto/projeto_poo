@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConectaArena - Login</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<!-- Navbar Fixa -->
+<nav class="navbar">
+    <div class="container">
+        <a href="#" class="logo-text">
+            <div class="brand-text">CONECTA<span>ARENA</span></div>
+        </a>
+        <ul class="navbar-nav">
+            <li><a href="/login" class="nav-link active">Login</a></li>
+            <li><a href="/cadastro" class="nav-link">Cadastro</a></li>
+        </ul>
+        <div class="navbar-actions"></div>
+    </div>
+</nav>
+
+<!-- Estrutura Centralizada usando a caixa de sugestão para envolver o form -->
+<div class="container">
+    <div class="suggestion-box">
+        <h2 class="card-title-center">Acesse sua Conta</h2>
+
+        <!-- Feedbacks do Controller -->
+        <div th:if="${erro}" class="alert alert-danger" th:text="${erro}"></div>
+        <div th:if="${param.sucesso}" class="alert alert-success">Cadastro realizado com sucesso! Faça login.</div>
+
+        <form action="/login" method="POST">
+            <div class="form-control-group">
+                <label class="label-bold">E-MAIL</label>
+                <input type="email" name="email" required class="form-control" placeholder="exemplo@arena.com">
+            </div>
+
+            <div class="form-control-group">
+                <label class="label-bold">SENHA</label>
+                <input type="password" name="senha" required class="form-control" placeholder="Digite sua senha">
+            </div>
+
+            <button type="submit" class="btn cadastro-link">Entrar</button>
+        </form>
+
+        <p class="event-info">
+            Não tem uma conta? <a href="/cadastro" class="nav-link">Cadastre-se aqui</a>
+        </p>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 ConectaArena. Todos os direitos reservados.</p>
+</footer>
+
+</body>
+</html>

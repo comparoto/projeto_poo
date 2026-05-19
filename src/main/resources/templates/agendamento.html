@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConectaArena - Agendar Visita</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments :: cabecalho}" th:with="paginaAtiva='agendamento'"></div>
+
+<div class="container">
+    <div class="schedule-container">
+        <div class="suggestion-box">
+            <h2 class="card-title">Agende sua visita guiada</h2>
+            <p class="event-info mb-20">
+                Venha conhecer os bastidores da maior arena de Pernambuco!
+            </p>
+
+            <div th:if="${sucesso}" class="alert alert-success" th:text="${sucesso}"></div>
+            <div th:if="${erro}" class="alert alert-danger" th:text="${erro}"></div>
+
+            <th:block th:if="${session.usuarioLogado != null}">
+                <form th:action="@{/visitas/agendar}" method="POST">
+
+                    <div class="form-control-group">
+                        <label class="label-bold">NOME COMPLETO</label>
+                        <input type="text" name="nome" required class="form-control"
+                               th:value="${session.usuarioLogado?.nome}" readonly>
+                    </div>
+
+                    <div class="form-control-group">
+                        <label class="label-bold">E-MAIL DE CONTATO</label>
+                        <input type="email" name="email" required class="form-control"
+                               th:value="${session.usuarioLogado?.email}" readonly>
+                    </div>
+
+                    <div class="form-control-group">
+                        <label class="label-bold">QUANTIDADE DE ACOMPANHANTES (MÁX. 4)</label>
+                        <input type="number" name="quantidadePessoas" min="1" max="5" value="1" required class="form-control">
+                    </div>
+
+                    <div class="form-control-group">
+                        <label class="label-bold">DATA DA VISITA</label>
+                        <input type="date" name="dataVisita" id="dataVisita" required class="form-control">
+                    </div>
+
+                    <div class="form-control-group">
+                        <label class="label-bold">HORÁRIOS DISPONÍVEIS</label>
+                        <div class="time-slots">
+                            <label class="time-option">
+                                <input type="radio" name="horario" value="09:00" required class="time-radio" onclick="selecionarHorario(this)">
+                                09:00
+                            </label>
+                            <label class="time-option">
+                                <input type="radio" name="horario" value="11:00" class="time-radio" onclick="selecionarHorario(this)">
+                                11:00
+                            </label>
+                            <label class="time-option">
+                                <input type="radio" name="horario" value="14:00" class="time-radio" onclick="selecionarHorario(this)">
+                                14:00
+                            </label>
+                            <label class="time-option">
+                                <input type="radio" name="horario" value="16:00" class="time-radio" onclick="selecionarHorario(this)">
+                                16:00
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-control-group mt-20">
+                        <label class="label-bold">OBSERVAÇÕES ESPECIAIS (OPCIONAL)</label>
+                        <textarea name="observacoes" class="form-control" rows="3" placeholder="Ex: Necessidade de acessibilidade, etc."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-outline-dark w-100-mt-15">CONFIRMAR AGENDAMENTO</button>
+                </form>
+            </th:block>
+
+            <th:block th:if="${session.usuarioLogado == null}">
+                <div class="alert alert-warning text-center mt-20">
+                    <p class="label-bold">Deseja conhecer a nossa Arena por dentro?</p>
+                    <p class="event-info mb-20">Você precisa estar conectado à sua conta para escolher uma data e confirmar o seu agendamento.</p>
+                    <a th:href="@{/login}" class="btn login-link">Fazer Login Agora</a>
+                </div>
+            </th:block>
+
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 Conecta Arena Pernambuco</p>
+</footer>
+
+<script>
+    function selecionarHorario(radio) {
+        document.querySelectorAll('.time-option').forEach(el => {
+            el.classList.remove('selected');
+        });
+        radio.parentElement.classList.add('selected');
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const inputData = document.getElementById('dataVisita');
+        if (inputData) {
+            const hoje = new Date().toISOString().split('T')[0];
+            inputData.setAttribute('min', hoje);
+        }
+    });
+</script>
+</body>
+</html>

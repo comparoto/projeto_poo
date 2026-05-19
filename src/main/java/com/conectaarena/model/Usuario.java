@@ -1,31 +1,97 @@
 package com.conectaarena.model;
 
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "usuarios")
-public class Usuario {
+public class Usuario{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false, unique = true)
+    private int id;
+    private String nome;
     private String email;
-
+    @Size(min = 8, message = "A senha deve ter no mínimo 8 caracteres.")
     private String senha;
-    private String perfil; // "ADMIN" ou "USER"
+    private String perfil;
+    @Pattern(regexp = "^\\d{11}$", message = "O CPF deve conter exatamente 11 dígitos numéricos, sem pontos ou hífen.")
+    private String cpf;
+    @Past(message = "A data de nascimento deve ser uma data passada.")
+    private LocalDate dataNascimento;
+    @Pattern(regexp = "^\\d{11}$", message = "O telefone deve conter exatamente 11 dígitos numéricos (DDD + 9 + número), sem espaços ou traços.")
+    private String telefone;
 
-    public Usuario() {}
 
-    public Usuario(String email, String senha, String perfil) {
-        this.email = email;
-        this.senha = senha;
-        this.perfil = perfil;
+    public Usuario(){}
+
+    public Usuario(int id,String nome, String email, String senha, String perfil, String cpf, LocalDate dataNascimento, String telefone){
+        this.setId(id);
+        this.setNome(nome);
+        this.setEmail(email);
+        this.setSenha(senha);
+        this.setPerfil(perfil);
+        this.setCpf(cpf);
+        this.setDataNascimento(dataNascimento);
+        this.setTelefone(telefone);
     }
 
-    // getters e setters manuais
-    public Long getId() { return id; }
-    public String getEmail() { return email; }
-    public String getPerfil() { return perfil; }
-    public String getSenha() { return senha; }
+    public int getId(){return id;}
+    public void setId(int id){
+        if(id<0){
+            throw new IllegalArgumentException("Id inválido");
+        }
+        this.id = id;
+    }
+    public String getNome(){return nome;}
+    public void setNome(String nome){
+        if (!"ADMIN".equalsIgnoreCase(this.perfil)){
+            if (nome == null) {
+                throw new IllegalArgumentException("Necessário informar o nome!");
+            }
+        }
+        this.nome = nome;
+    }
+    public String getEmail(){return email;}
+    public void setEmail(String email){
+        if(email == null){
+            throw new IllegalArgumentException("Necessário informar e-mail!");
+        }
+        this.email = email;
+    }
+    public String getSenha(){return senha;}
+    public void setSenha(String senha){
+        if(senha == null){
+            throw new IllegalArgumentException("Necessário informar uma senha!");
+        }
+        this.senha = senha;
+    }
+    public String getCpf(){return cpf;}
+    public void setCpf(String cpf){
+        if (!"ADMIN".equalsIgnoreCase(this.perfil)){
+            if (cpf == null){
+                throw new IllegalArgumentException("Necessário informar o CPF!");
+            }
+        }
+        this.cpf = cpf;
+    }
+
+    public LocalDate getDataNascimento(){return dataNascimento;}
+    public void setDataNascimento(LocalDate dataNascimento){
+        if (!"ADMIN".equalsIgnoreCase(this.perfil)){
+            if (dataNascimento == null) {
+                throw new IllegalArgumentException("Necessário informar a data de nascimento!");
+            }
+        }
+        this.dataNascimento = dataNascimento;
+    }
+    public String getTelefone(){return telefone;}
+    public void setTelefone(String telefone){this.telefone = telefone;}
+
+    public String getPerfil(){return perfil;}
+    public void setPerfil(String perfil){this.perfil = perfil;}
+
 }
+

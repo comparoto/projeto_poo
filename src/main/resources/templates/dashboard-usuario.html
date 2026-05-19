@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}">
+    <title>Minha Área - ConectaArena</title>
+</head>
+<body>
+
+<div th:replace="~{fragments :: cabecalho}" th:with="paginaAtiva='dashboard'"></div>
+
+<div class="container">
+    <div class="banner-section"></div>
+</div>
+
+<div class="container">
+    <div th:if="${param.sucessoCompra}" class="alert alert-success">
+        Inscrição confirmada com sucesso! Seu ingresso foi gerado.
+    </div>
+    <div th:if="${param.erroCompra}" class="alert alert-danger" th:text="${param.erroCompra}"></div>
+    <div th:if="${sucesso}" class="alert alert-success" th:text="${sucesso}"></div>
+    <div th:if="${erro}" class="alert alert-danger" th:text="${erro}"></div>
+</div>
+
+<div class="container user-dashboard-layout">
+
+    <div class="dashboard-menu">
+        <button class="dash-btn active" onclick="alternarAba('ingressos')">🎟️ Meus Ingressos</button>
+        <button class="dash-btn" onclick="alternarAba('sugestoes')">💡 Minhas Sugestões</button>
+        <button class="dash-btn" onclick="alternarAba('agendamentos')">📅 Meus Agendamentos</button>
+        <button class="dash-btn" onclick="alternarAba('perfil')">👤 Dados Pessoais</button>
+    </div>
+
+    <div class="dashboard-content">
+
+        <div id="aba-ingressos" class="dash-section">
+            <h3 class="card-title">Meus Ingressos</h3>
+            <p class="event-info mb-20">Confira as inscrições confirmadas para os seus eventos na Arena.</p>
+
+            <div class="table-container" th:if="${not #lists.isEmpty(ingressos)}">
+                <table class="dash-table">
+                    <thead>
+                    <tr>
+                        <th>Evento</th>
+                        <th>Data / Horário</th>
+                        <th>Código QR (Voucher)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="ingresso : ${ingressos}">
+                        <td class="label-bold" th:text="${ingresso.evento.titulo}">Nome do Evento</td>
+                        <td th:text="${#temporals.format(ingresso.dataCompra, 'dd/MM/yyyy HH:mm')}">Data</td>
+                        <td><code class="qr-code-text" th:text="${ingresso.qrCode}">ARENA-XXXX</code></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div th:if="${#lists.isEmpty(ingressos)}" class="alert alert-warning">
+                Você ainda não adquiriu nenhum ingresso.
+            </div>
+        </div>
+
+        <div id="aba-sugestoes" class="dash-section hidden-fields">
+            <h3 class="card-title">Minhas Sugestões</h3>
+            <p class="event-info mb-20">Histórico de ideias enviadas para a nossa equipe de organizadores.</p>
+
+            <div th:if="${not #lists.isEmpty(sugestoes)}" class="suggestion-list">
+                <div th:each="sugestao : ${sugestoes}" class="suggestion-item">
+                    <p class="label-bold" th:text="${sugestao.texto}">Texto da sugestão</p>
+                    <span class="event-info" th:text="${#temporals.format(sugestao.dataCriacao, 'dd/MM/yyyy HH:mm')}">Data</span>
+                </div>
+            </div>
+            <div th:if="${#lists.isEmpty(sugestoes)}" class="alert alert-warning">
+                Nenhuma sugestão enviada por você até o momento.
+            </div>
+        </div>
+
+        <div id="aba-agendamentos" class="dash-section hidden-fields">
+            <h3 class="card-title">Meus Agendamentos</h3>
+            <p class="event-info mb-20">Veja as datas marcadas para o seu tour guiado por dentro da Arena.</p>
+
+            <div class="table-container" th:if="${not #lists.isEmpty(agendamentos)}">
+                <table class="dash-table">
+                    <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Horário</th>
+                        <th>Acompanhantes</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="agendamento : ${agendamentos}">
+                        <td class="label-bold" th:text="${agendamento.dataVisita}">00/00/0000</td>
+                        <td th:text="${agendamento.horario}">00:00</td>
+                        <td th:text="${agendamento.quantidadePessoas}">1</td>
+                        <td><span class="status-badge">Confirmado</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div th:if="${#lists.isEmpty(agendamentos)}" class="alert alert-warning">
+                Nenhuma visita guiada agendada. <a th:href="@{/visitas/agendar}" class="orange-text label-bold">Agende uma agora!</a>
+            </div>
+        </div>
+
+        <div id="aba-perfil" class="dash-section hidden-fields">
+            <h3 class="card-title">Meus Dados</h3>
+            <p class="event-info mb-20">Informações cadastrais da sua conta na Arena.</p>
+
+            <div class="profile-details mb-20">
+                <p class="event-info"><span class="label-bold">E-mail:</span> <span th:text="${session.usuarioLogado.email}">email@provedor.com</span></p>
+                <p class="event-info" th:if="${session.usuarioLogado.nome}"><span class="label-bold">Nome:</span> <span th:text="${session.usuarioLogado.nome}">Nome do Usuário</span></p>
+                <p class="event-info"><span class="label-bold">Perfil de Acesso:</span> <span th:text="${session.usuarioLogado.perfil}">USER</span></p>
+
+                <p class="event-info" th:if="${session.usuarioLogado.telefone}">
+                    <span class="label-bold">Telefone:</span> <span th:text="${session.usuarioLogado.telefone}">(81) 99999-9999</span>
+                </p>
+
+                <p class="event-info" th:if="${session.usuarioLogado.dataNascimento}">
+                    <span class="label-bold">Data de Nascimento:</span>
+                    <span th:text="${#temporals.format(session.usuarioLogado.dataNascimento, 'dd/MM')}">18/05</span>
+                </p>
+            </div>
+
+            <hr class="dash-divider">
+
+            <div class="danger-zone">
+                <h4 class="label-bold danger-title">Zona de Perigo</h4>
+                <p class="event-info mb-20">A exclusão da conta é permanente. Todos os seus ingressos e históricos serão apagados do sistema de forma irreversível.</p>
+
+                <form th:action="@{/usuario/excluir-conta}" method="POST" onsubmit="return confirmarExclusaoConta()">
+                    <button type="submit" class="btn btn-danger">Excluir conta</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 ConectaArena. Todos os direitos reservados.</p>
+</footer>
+
+<script>
+    function alternarAba(idAba) {
+        document.querySelectorAll('.dash-section').forEach(secao => {
+            secao.classList.add('hidden-fields');
+        });
+        document.querySelectorAll('.dash-btn').forEach(botao => {
+            botao.classList.remove('active');
+        });
+
+        document.getElementById('aba-' + idAba).classList.remove('hidden-fields');
+        event.currentTarget.classList.add('active');
+    }
+
+    function confirmarExclusaoConta() {
+        return confirm("ATENÇÃO!\n\nVocê tem certeza absoluta que deseja excluir sua conta? Essa operação não poderá ser desfeita.");
+    }
+</script>
+
+</body>
+</html>

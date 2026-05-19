@@ -5,58 +5,92 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "eventos")
-public class Evento {
+public class Evento{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private int id;
     private String titulo;
     private LocalDateTime data;
     private String categoria;
-    private Integer capacidadeMaxima;
-    private Integer ingressosVendidos = 0;
-    private String urlImagem;
+    private int ingressosDisponiveis;
+    private int ingressosVendidos;
+    private String imagem;
     private double preco;
+    @ManyToOne
+    @JoinColumn(name = "organizador_id", nullable = true)
+    private Usuario organizador;
 
-    public Evento() {}
+    public Evento(){} // lembrando que o hibernate precisa desse construtor vazio
 
-    public Evento(String titulo, LocalDateTime data, String categoria, Integer capacidade, String urlImagem, double preco) {
-        this.titulo = titulo;
-        this.data = data;
-        this.categoria = categoria;
-        this.capacidadeMaxima = capacidade;
-        this.urlImagem = urlImagem;
-        this.preco = preco;
-        this.ingressosVendidos = 0;
+    public Evento(int id, Usuario organizador, String titulo, LocalDateTime data, String categoria, int ingressosDisponiveis, int ingressosVendidos, String imagem, double preco){
+        this.setId(id);
+        this.setOrganizador(organizador);
+        this.setTitulo(titulo);
+        this.setData(data);
+        this.setCategoria(categoria);
+        this.setIngressosDisponiveis(ingressosDisponiveis);
+        this.setIngressosVendidos(ingressosVendidos);
+        this.setImagem(imagem);
+        this.setPreco(preco);
     }
-
-    public boolean temVaga() {
-        return this.ingressosVendidos < this.capacidadeMaxima;
-    }
-
-    public void registrarVenda() {
-        if (!temVaga()) {
-            throw new IllegalStateException("Capacidade máxima atingida!");
+    public int getId(){return id;}
+    public void setId(int id){
+        if(id<0){
+            throw new IllegalArgumentException("Id inválido");
         }
-        this.ingressosVendidos++;
+        this.id = id;
+    }
+    public Usuario getOrganizador(){return organizador;}
+    public void setOrganizador(Usuario organizador){this.organizador = organizador;}
+
+    public String getTitulo(){return titulo;}
+    public void setTitulo(String titulo){
+        if(titulo == null){
+            throw new IllegalArgumentException("Evento sem nome");
+        }
+        this.titulo = titulo;
     }
 
-    // getters
-    public Long getId() { return id; }
-    public String getTitulo() { return titulo; }
-    public LocalDateTime getData() { return data; }
-    public String getCategoria() { return categoria; }
-    public Integer getCapacidadeMaxima() { return capacidadeMaxima; }
-    public Integer getIngressosVendidos() { return ingressosVendidos; }
-    public String getUrlImagem() { return urlImagem; }
-    public double getPreco() { return preco; } // <-- ESSENCIAL PARA O THYMELEAF
-
-    // setters
-    public void setPreco(double preco) { this.preco = preco; }
-    public void setTitulo(String titulo) { this.titulo = titulo; }
-    public void setData(LocalDateTime data) { this.data = data; }
-    public void setCategoria(String categoria) { this.categoria = categoria; }
-    public void setCapacidadeMaxima(Integer capacidadeMaxima) { this.capacidadeMaxima = capacidadeMaxima; }
-    public void setIngressosVendidos(Integer ingressosVendidos) { this.ingressosVendidos = ingressosVendidos; }
-    public void setUrlImagem(String urlImagem) { this.urlImagem = urlImagem; }
+    public LocalDateTime getData(){return data;}
+    public void setData(LocalDateTime data){
+        if(data == null){
+            throw new IllegalArgumentException("Evento sem data");
+        }
+        this.data = data;
+    }
+    public String getCategoria(){return categoria;}
+    public void setCategoria(String categoria){
+        if(categoria == null){
+            throw new IllegalArgumentException("Categoria indefinida");
+        }
+        this.categoria = categoria;
+    }
+    public int getIngressosDisponiveis(){return ingressosDisponiveis;}
+    public void setIngressosDisponiveis(int ingressosDisponiveis){
+        if(ingressosDisponiveis < ingressosVendidos){
+            throw new IllegalArgumentException("A capacidade total não pode ser menor que os ingressos já vendidos!");
+        }
+        this.ingressosDisponiveis = ingressosDisponiveis;
+    }
+    public int getIngressosVendidos(){return ingressosVendidos;}
+    public void setIngressosVendidos(int ingressosVendidos){
+        if(ingressosVendidos <0 || ingressosVendidos > ingressosDisponiveis){
+            throw new IllegalArgumentException("Ingressos esgotados!");
+        }
+        this.ingressosVendidos = ingressosVendidos;
+    }
+    public String getImagem(){return imagem;}
+    public void setImagem(String imagem){
+        if(imagem == null){
+            throw new IllegalArgumentException("Imagem indisponível");
+        }
+        this.imagem = imagem;
+    }
+    public double getPreco(){return preco;}
+    public void setPreco(double preco){
+        if(preco <0){
+            throw new IllegalArgumentException("Preço inválido");
+        }
+        this.preco = preco;
+    }
 }

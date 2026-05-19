@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}">
+    <title>Painel Admin - ConectaArena</title>
+</head>
+<body>
+
+<div th:replace="~{fragments :: cabecalho}" th:with="paginaAtiva='dashboard'"></div>
+
+<div class="container">
+    <div class="banner-section">
+    </div>
+</div>
+
+<div class="container events-content">
+
+    <div>
+        <h2 class="card-title">Visão Geral do Sistema</h2>
+
+        <div class="events-grid">
+            <div class="event-card">
+                <div class="card-body">
+                    <span class="card-category">Mural</span>
+                    <h3 class="detail-title" th:text="${sugestoes.size()}">0</h3>
+                    <p class="event-info">Sugestões Recebidas no Banco</p>
+                </div>
+            </div>
+
+            <div class="event-card">
+                <div class="card-body">
+                    <span class="card-category">Status</span>
+                    <h3 class="detail-title">Ativo</h3>
+                    <p class="event-info">Conexão JPA Operacional</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="purchase-confirm-box">
+            <h3 class="card-title">Controle Operacional</h3>
+            <p class="event-info">Utilize o menu superior do cabeçalho para gerenciar os eventos ativos, aprovar novos lotes de inscrições ou auditar o fluxo transacional da Arena.</p>
+        </div>
+    </div>
+
+    <aside class="sidebar">
+        <div class="suggestion-box">
+            <h3 class="card-title">Feedback dos Clientes</h3>
+            <p class="event-info">Mensagens processadas em tempo real:</p>
+
+            <ul>
+                <li th:each="sugestao : ${sugestoes}">
+                    <p class="label-bold" th:text="${sugestao.texto}"></p>
+                    <span class="event-info" th:text="${sugestao.dataCriacao}"></span>
+                </li>
+            </ul>
+
+            <div th:if="${sugestoes.isEmpty()}" class="alert alert-warning">
+                Nenhuma sugestão na fila.
+            </div>
+        </div>
+    </aside>
+
+</div>
+
+<footer>
+    <p>&copy; 2026 ConectaArena. Todos os direitos reservados.</p>
+</footer>
+
+</body>
+</html>
+</html>

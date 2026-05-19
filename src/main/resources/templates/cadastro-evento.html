@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}">
+    <title>Painel Admin - Cadastrar Evento</title>
+</head>
+<body>
+
+<div th:replace="~{fragments :: cabecalho}"></div>
+
+<div class="container">
+    <div class="suggestion-box">
+        <h2 class="card-title">Cadastrar Novo Evento</h2>
+        <p class="event-info">Preencha as especificações para disponibilizar os ingressos na vitrine da Arena Pernambuco.</p>
+
+        <div th:if="${erro}" class="alert alert-danger" th:text="${erro}"></div>
+
+        <form th:action="@{/admin/eventos/salvar}" method="POST">
+
+            <div class="form-control-group">
+                <label class="label-bold">TÍTULO DO EVENTO / CONFRONTO</label>
+                <input type="text" name="titulo" required class="form-control" placeholder="Ex: Sport x Santa Cruz ou Show de Alceu Valença">
+            </div>
+
+            <div class="form-control-group">
+                <label class="label-bold">DATA E HORÁRIO</label>
+                <input type="datetime-local" name="data" required class="form-control">
+            </div>
+
+            <div class="form-control-group">
+                <label class="label-bold">CATEGORIA</label>
+                <select name="categoria" class="form-control">
+                    <option value="Esportivo">Esportivo</option>
+                    <option value="Cultural">Cultural</option>
+                    <option value="Corporativo">Corporativo</option>
+                </select>
+            </div>
+
+            <div class="form-control-group">
+                <label class="label-bold">TOTAL DE INGRESSOS DISPONÍVEIS</label>
+                <input type="number" name="ingressosDisponiveis" required class="form-control" placeholder="Ex: 45000" min="1">
+            </div>
+
+            <div class="form-control-group">
+                <label class="label-bold">PREÇO DO INGRESSO (R$)</label>
+                <input type="number" name="preco" required class="form-control" placeholder="0.00" step="0.01" min="0">
+            </div>
+
+            <div class="form-control-group">
+                <label class="label-bold">URL DA IMAGEM DE CAPA (BANNER)</label>
+                <input type="url" name="imagem" required class="form-control" placeholder="https://link-da-imagem.com/banner.jpg">
+            </div>
+
+            <button type="submit" class="btn btn-outline-dark">PUBLICAR EVENTO NA ARENA</button>
+        </form>
+
+        <div class="view-more-container">
+            <a th:href="@{/admin/dashboard}" class="btn-back">← Voltar para o Painel</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 ConectaArena. Todos os direitos reservados.</p>
+</footer>
+
+</body>
+</html>

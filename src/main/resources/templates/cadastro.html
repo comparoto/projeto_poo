@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}">
+    <title>ConectaArena - Cadastro</title>
+</head>
+<body>
+<nav class="navbar">
+    <div class="container">
+        <a href="#" class="logo-text">
+            <div class="brand-text">CONECTA<span>ARENA</span></div>
+        </a>
+        <ul class="navbar-nav">
+            <li><a href="/login" class="nav-link">Login</a></li>
+            <li><a href="/cadastro" class="nav-link active">Cadastro</a></li>
+        </ul>
+        <div class="navbar-actions"></div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="suggestion-box">
+        <h2 class="card-title">Crie seu Perfil</h2>
+
+        <div th:if="${erro}" class="alert alert-danger" th:text="${erro}"></div>
+
+        <form th:action="@{/cadastro}" th:object="${usuario}" method="POST">
+
+            <div class="form-control-group">
+                <label class="label-bold">TIPO DE PERFIL</label>
+                <select th:field="*{perfil}" id="seletorPerfil" class="form-control" onchange="alternarCamposCadastro()">
+                    <option value="USER">Usuário Comum </option>
+                    <option value="ADMIN">Administrador (Organizador)</option>
+                </select>
+            </div>
+
+            <div class="form-control-group">
+                <label class="label-bold">E-MAIL</label>
+                <input type="email" th:field="*{email}" required class="form-control" placeholder="exemplo@arena.com">
+            </div>
+
+            <div class="form-control-group">
+                <label class="label-bold">SENHA</label>
+                <input type="password" th:field="*{senha}" required class="form-control" placeholder="Crie uma senha forte">
+
+                <span th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}" style="color: #e63946; font-size: 0.85em; font-weight: bold; display: block; margin-top: 5px;"></span>
+            </div>
+            <div id="camposUsuarioComum">
+                <div class="form-control-group">
+                    <label class="label-bold">NOME COMPLETO</label>
+                    <input type="text" th:field="*{nome}" id="inputNome" required class="form-control" placeholder="Digite seu nome completo">
+                </div>
+
+                <div class="form-control-group">
+                    <label class="label-bold">CPF</label>
+                    <input type="text" name="cpf" id="inputCpf" required class="form-control" placeholder="000.000.000-00" maxlength="14">
+
+                    <span th:if="${#fields.hasErrors('cpf')}"
+                          th:errors="*{cpf}"
+                          style="color: #e63946; font-size: 0.85em; font-weight: bold; display: block; margin-top: 5px;">
+                    </span>
+                </div>
+
+                <div class="form-control-group">
+                    <label class="label-bold">DATA DE NASCIMENTO</label>
+                    <input type="date" th:field="*{dataNascimento}" id="inputDataNasc" required class="form-control">
+
+                    <span th:if="${#fields.hasErrors('dataNascimento')}"
+                          th:errors="*{dataNascimento}"
+                          style="color: #e63946; font-size: 0.85em; font-weight: bold; display: block; margin-top: 5px;">
+                    </span>
+                </div>
+
+                <div class="form-control-group">
+                    <label class="label-bold">TELEFONE / WHATSAPP</label>
+                    <input type="tel" th:field="*{telefone}" class="form-control" placeholder="(81) 99999-0000">
+
+                    <span th:if="${#fields.hasErrors('telefone')}"
+                          th:errors="*{telefone}"
+                          style="color: #e63946; font-size: 0.85em; font-weight: bold; display: block; margin-top: 5px;">
+                    </span>
+                </div>
+            </div>
+
+            <div id="camposAdministrador" class="hidden-fields">
+                <div class="form-control-group">
+                    <label class="label-bold">CHAVE DE ACESSO CORPORATIVO (TOKEN)</label>
+                    <input type="password" name="chaveAdmin" id="inputChaveAdmin" class="form-control" placeholder="Insira o código de organizador da Arena">
+                    <p class="event-info">*Apenas funcionários autorizados possuem este token de segurança.</p>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-outline-dark">FINALIZAR CADASTRO</button>
+        </form>
+
+        <p class="event-info">
+            Já possui conta? <a th:href="@{/login}" class="login-link">Faça login</a>
+        </p>
+
+        <div class="view-more-container">
+            <a th:href="@{/}" class="btn-back">← Voltar para a Home</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 Conecta Arena Pernambuco</p>
+</footer>
+
+<script th:inline="javascript">
+    function alternarCamposCadastro() {
+        const perfilSelecionado = document.getElementById("seletorPerfil").value;
+        const blocoUsuario = document.getElementById("camposUsuarioComum");
+        const blocoAdmin = document.getElementById("camposAdministrador");
+
+        const inputNome = document.getElementById("inputNome");
+        const inputCpf = document.getElementById("inputCpf");
+        const inputDataNasc = document.getElementById("inputDataNasc");
+        const inputChaveAdmin = document.getElementById("inputChaveAdmin");
+
+        // Verifica se todos os elementos foram mapeados corretamente para evitar erros no console
+        if (!blocoUsuario || !blocoAdmin) return;
+
+        if (perfilSelecionado === "ADMIN") {
+            // Esconde Usuário e Mostra Admin usando as classes do CSS
+            blocoUsuario.classList.add("hidden-fields");
+            blocoAdmin.classList.remove("hidden-fields");
+
+            // Ajusta obrigatoriedade dos campos
+            inputNome.removeAttribute("required");
+            inputCpf.removeAttribute("required");
+            inputDataNasc.removeAttribute("required");
+            inputChaveAdmin.setAttribute("required", "required");
+        } else {
+            // Mostra Usuário e Esconde Admin usando as classes do CSS
+            blocoUsuario.classList.remove("hidden-fields");
+            blocoAdmin.classList.add("hidden-fields");
+
+            // Restaura obrigatoriedade dos campos
+            inputNome.setAttribute("required", "required");
+            inputCpf.setAttribute("required", "required");
+            inputDataNasc.setAttribute("required", "required");
+            inputChaveAdmin.removeAttribute("required");
+        }
+    }
+
+    // O "DOMContentLoaded" garante que o script só vai rodar depois do HTML estar todo carregado
+    document.addEventListener("DOMContentLoaded", alternarCamposCadastro);
+</script>
+</body>
+</html>

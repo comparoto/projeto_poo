@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head th:replace="~{fragments :: head}">
+    <title>Conecta Arena - Sobre</title>
+</head>
+<body>
+
+<div th:replace="~{fragments :: cabecalho}"></div>
+
+<div class="container">
+    <div class="banner-section">
+    </div>
+</div>
+
+<div class="container">
+    <div class="event-detail-card">
+        <img th:src="@{https://blogdosergioleandro.com.br/wp-content/uploads/2014/06/Arena-PE-2.jpg}" class="event-detail-img" alt="Arena Pernambuco">
+
+        <div class="card-body">
+            <span class="card-category">Institucional</span>
+            <h1 class="detail-title">Sobre a Arena</h1>
+
+            <div class="event-info">
+                <p>O <strong>Conecta Arena</strong> é a plataforma oficial de engajamento e gerenciamento de experiências da Arena Pernambuco. Nosso objetivo é aproximar os torcedores, entusiastas de tecnologia, participantes de grandes congressos e amantes da cultura do coração dos maiores eventos do estado.</p>
+
+                <p style="margin-top: 15px;">Desenvolvido para centralizar desde grandes clássicos esportivos até os mais modernos Summits tecnológicos, o ecossistema permite que você garanta seus ingressos de forma rápida, interaja com a administração enviando sugestões e acompanhe de perto o calendário de ocupação da Arena.</p>
+            </div>
+
+            <div class="purchase-confirm-box contact-section">
+                <h4 class="card-title">Entre em contato conosco!</h4>
+
+                <p class="event-info">
+                    <span class="label-bold">📍 Endereço:</span>
+                    <span>Avenida Deus é Fiel, 1 - Penedo, São Lourenço da Mata - PE, 54710-010</span>
+                </p>
+
+                <p class="event-info">
+                    <span class="label-bold">📞 Telefone:</span>
+                    <span>(81) 3456-7890 / (81) 98765-4321</span>
+                </p>
+
+                <p class="event-info">
+                    <span class="label-bold">✉️ E-mail Suporte:</span>
+                    <span>contato@conectaarena.com.br</span>
+                </p>
+            </div>
+            <div class="detail-actions">
+                <a th:href="@{/}" class="btn-back">
+                    ← Voltar para a programação de eventos
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 Conecta Arena Pernambuco</p>
+</footer>
+
+</body>
+</html>
