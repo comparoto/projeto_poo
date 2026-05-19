@@ -5,22 +5,30 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "sugestoes")
-public class Sugestao {
+public class Sugestao{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(columnDefinition = "TEXT", nullable = false)
+    private int id;
     private String texto;
 
-    private LocalDateTime dataCriacao = LocalDateTime.now();
+    @Column(updatable = false)
+    private LocalDateTime dataCriacao = LocalDateTime.now();;
 
-    public Sugestao() {}
-    public Sugestao(String texto) { this.texto = texto; }
+    public Sugestao(){} // lembrando que o hibernate precisa desse construtor vazio
 
-    // getters e setters
-    public Long getId() { return id; }
-    public String getTexto() { return texto; }
-    public void setTexto(String texto) { this.texto = texto; }
-    public LocalDateTime getDataCriacao() { return dataCriacao; }
+    public Sugestao(String texto){
+        this.setTexto(texto);
+    }
+    public int getId(){return id;}
+    public void setId(int id){this.id = id;}
+
+    public String getTexto(){return texto;}
+    public void setTexto(String texto){
+        if(texto == null){
+            throw new IllegalArgumentException("Texto em braco!");
+        }
+        this.texto = texto;
+    }
+    public LocalDateTime getDataCriacao(){return dataCriacao;}
+    public void setDataCriacao(LocalDateTime dataCriacao){this.dataCriacao = dataCriacao;}
 }

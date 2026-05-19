@@ -5,13 +5,13 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "ingressos")
-public class Ingresso {
+public class Ingresso{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "comprador_id")
     private Usuario comprador;
 
     @ManyToOne
@@ -21,17 +21,27 @@ public class Ingresso {
     private LocalDateTime dataCompra;
     private String qrCode;
 
-    public Ingresso() {}
+    public Ingresso(){} // lembrando que o hibernate precisa desse construtor vazio
 
-    public Ingresso(Usuario comprador, Evento evento, String qrCode) {
-        this.comprador = comprador;
-        this.evento = evento;
-        this.qrCode = qrCode;
-        this.dataCompra = LocalDateTime.now();
+    public Ingresso(int id, Usuario comprador, Evento evento,LocalDateTime dataCompra, String qrCode){
+        this.setId(id);
+        this.setComprador(comprador);
+        this.setEvento(evento);
+        this.setQrCode(qrCode);
+        this.setDataCompra(dataCompra);
     }
+    public int getId(){return id;}
+    public void setId(int id){this.id = id;}
 
-    // getters
-    public Usuario getComprador() { return comprador; }
-    public Evento getEvento() { return evento; }
-    public String getQrCode() { return qrCode; }
+    public Usuario getComprador(){return comprador;}
+    public void setComprador(Usuario comprador){this.comprador = comprador;}
+
+    public Evento getEvento(){return evento;}
+    public void setEvento(Evento evento){this.evento = evento;}
+
+    public String getQrCode(){return qrCode;}
+    public void setQrCode(String qrCode){this.qrCode = qrCode;}
+
+    public LocalDateTime getDataCompra(){return dataCompra;}
+    public void setDataCompra(LocalDateTime dataCompra){this.dataCompra = dataCompra;}
 }

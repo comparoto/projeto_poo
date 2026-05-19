@@ -14,26 +14,29 @@
 
         <div class="events-column">
             <div class="filters-container">
-                <a th:href="@{${paginaAtiva == 'home' ? '/' : '/eventos'}(categoria='Todos')}"
+                <a th:href="@{/(categoria='Todos', verMais=${paginaAtiva == 'eventos'})}"
                    th:classappend="${categoriaSelecionada == 'Todos'} ? 'active' : ''"
                    class="filter-btn">Todos</a>
 
-                <a th:href="@{${paginaAtiva == 'home' ? '/' : '/eventos'}(categoria='Cultural')}"
+                <a th:href="@{/(categoria='Cultural', verMais=${paginaAtiva == 'eventos'})}"
                    th:classappend="${categoriaSelecionada == 'Cultural'} ? 'active' : ''"
                    class="filter-btn">Cultural</a>
 
-                <a th:href="@{${paginaAtiva == 'home' ? '/' : '/eventos'}(categoria='Esportivo')}"
+                <a th:href="@{/(categoria='Esportivo', verMais=${paginaAtiva == 'eventos'})}"
                    th:classappend="${categoriaSelecionada == 'Esportivo'} ? 'active' : ''"
                    class="filter-btn">Esportivo</a>
 
-                <a th:href="@{${paginaAtiva == 'home' ? '/' : '/eventos'}(categoria='Corporativo')}"
+                <a th:href="@{/(categoria='Corporativo', verMais=${paginaAtiva == 'eventos'})}"
                    th:classappend="${categoriaSelecionada == 'Corporativo'} ? 'active' : ''"
                    class="filter-btn">Corporativo</a>
             </div>
 
             <div class="events-grid">
-                <div class="event-card" th:each="evento : ${eventos}">
-                    <img th:src="${evento.urlImagem}" class="card-img-top" alt="Imagem do Evento">
+                <div class="event-card"
+                     th:each="evento, iterStat : ${eventos}"
+                     th:if="${paginaAtiva == 'eventos' ? true : iterStat.index < 6}">
+
+                    <img th:src="${evento.imagem}" class="card-img-top" alt="Imagem do Evento">
                     <div class="card-body">
                         <span class="card-category" th:text="${evento.categoria}">CATEGORIA</span>
                         <h5 class="card-title" th:text="${evento.titulo}">Nome do Evento</h5>
@@ -53,21 +56,34 @@
                     <p>Tente selecionar outra categoria ou volte mais tarde!</p>
                 </div>
             </div>
+
+            <div th:if="${paginaAtiva == 'home' and #lists.size(eventos) > 6}" class="view-more-container">
+                <a th:href="@{/(verMais=true, categoria=${categoriaSelecionada})}" class="btn btn-view-more">Ver Mais Eventos →</a>
+            </div>
+
         </div>
 
         <aside th:if="${paginaAtiva == 'home'}" class="sidebar">
             <div class="suggestion-box">
                 <h5>ALGUMA IDEIA DE EVENTO?</h5>
-                <p>Ajude-nos a tornar a Arena Pernambuco ainda mais incrível!</p>
 
-                <div th:if="${msgSucesso}" class="alert alert-success" th:text="${msgSucesso}"></div>
-                <div th:if="${msgErro}" class="alert alert-danger" th:text="${msgErro}"></div>
+                <th:block th:if="${session.usuarioLogado != null}">
+                    <p>Ajude-nos a tornar a Arena Pernambuco ainda mais incrível!</p>
 
-                <form th:action="@{/sugestoes}" method="post">
-                    <textarea class="form-control" name="texto" rows="6"
-                              placeholder="Sua sugestão... (mín. 20 caracteres)" required></textarea>
-                    <button type="submit" class="btn btn-outline-dark">SUGIRA SEU EVENTO</button>
-                </form>
+                    <div th:if="${mensagemSucesso}" class="alert alert-success" th:text="${mensagemSucesso}"></div>
+                    <div th:if="${mensagemErro}" class="alert alert-danger" th:text="${mensagemErro}"></div>
+
+                    <form th:action="@{/sugestoes}" method="post">
+                        <textarea class="form-control" name="texto" rows="6"
+                                  placeholder="Sua sugestão..." required></textarea>
+                        <button type="submit" class="btn btn-outline-dark">SUGIRA ALGO</button>
+                    </form>
+                </th:block>
+
+                <th:block th:if="${session.usuarioLogado == null}">
+                    <p>Faça login e dê sua opinião!</p>
+                    <a th:href="@{/login}" class="btn cadastro-link">Logar Agora</a>
+                </th:block>
             </div>
         </aside>
     </div>

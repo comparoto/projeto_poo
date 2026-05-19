@@ -118,7 +118,6 @@ button {
     padding-bottom: 5px;
 }
 
-/* login e cadastro */
 .navbar-actions {
     flex: 1;
     display: flex;
@@ -130,15 +129,64 @@ button {
 
 .nav-user-info {
     font-weight: 600;
-    margin-right: 10px;
+    color: #333;
 }
 
+/* símbolo/avatar redondo */
+.user-avatar-btn {
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.user-avatar-btn:hover {
+    transform: scale(1.1);
+}
+
+.user-icon-circle {
+    width: 42px;
+    height: 42px;
+    background-color: #FF8C00;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 8px rgba(255, 140, 0, 0.3);
+    border: 2px solid white;
+}
+.btn-back-home {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #666;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 15px;
+    transition: 0.3s ease;
+}
+
+.btn-back-home:hover {
+    color: #FF8C00;
+    background-color: #f0f0f0;
+}
+/* botão de logout */
 .btn-logout {
-    padding: 5px 15px !important;
+    padding: 6px 18px !important;
     border: 1px solid #ddd !important;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    background-color: transparent;
+    color: #555;
+    transition: 0.3s;
+    font-weight: 600;
 }
 
-/* config geral para todos os botoes*/
+.btn-logout:hover {
+    background-color: #f8d7da !important;
+    color: #721c24 !important;
+    border-color: #f5c6cb !important;
+}
+
 .btn {
     border-radius: 25px;
     padding: 10px 25px;
@@ -149,6 +197,11 @@ button {
     text-align: center;
 }
 
+.hidden-fields {
+    display: none !important;
+}
+
+/* links de nav*/
 .btn.login-link {
     font-weight: 600;
     color: #222;
@@ -158,17 +211,197 @@ button {
     transform: scale(1.05);
     color: #FF8C00;
 }
+.text-center {
+    text-align: center;
+}
 
-.btn.cadastro-link {
+
+/*Layout do Dashboard do Usuário */
+.user-dashboard-layout {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 30px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+/* Customizações para a tabela de gestão do Organizador/Admin */
+.dash-table-scroll {
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+.admin-table-view {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+.admin-table-view th {
+    background-color: #f4f4f4;
+    border-bottom: 2px solid #ff6b00;
+    padding: 12px;
+    text-align: left;
+}
+
+.admin-table-view td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.95rem;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+@media (max-width: 768px) {
+    .user-dashboard-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.dashboard-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dash-btn {
+    text-align: left;
+    padding: 14px 20px;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #495057;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.dash-btn:hover {
+    background: #eccca2;
+    color: #ff6b00;
+}
+
+.dash-btn.active {
+    background: #ff6b00;
+    color: #fff;
+    border-color: #ff6b00;
+}
+
+.dashboard-content {
+    background: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+/* Tabelas Internas */
+.dash-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.dash-table th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #ff6b00;
+    padding: 12px;
+    text-align: left;
+    font-weight: 700;
+    color: #333;
+}
+
+.dash-table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    font-size: 0.95rem;
+}
+
+.qr-code-text {
+    background: #f1f3f5;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: monospace;
+    color: #d63384;
+    font-weight: bold;
+}
+
+.status-badge {
+    background-color: #e6f4ea;
+    color: #137333;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+/* Sugestões e Perigo */
+.suggestion-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.suggestion-item {
+    padding: 15px;
+    background: #f8f9fa;
+    border-left: 3px solid #ff6b00;
+    border-radius: 0 6px 6px 0;
+}
+
+.danger-zone {
+    border: 1px solid #f5c2c2;
+    background-color: #fdf2f2;
+    padding: 20px;
+    border-radius: 6px;
+}
+
+.btn-danger {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.btn-danger:hover {
+    background-color: #c9302c;
+}
+.dash-divider {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 25px 0;
+}
+
+.danger-title {
+    color: #d9534f;
+    margin-bottom: 10px;
+}
+/* botões principais  */
+.btn.cadastro-link, .btn-pay {
     background-color: #FF8C00;
     color: white;
 }
 
-.btn.cadastro-link:hover {
+.btn.cadastro-link:hover, .btn-pay:hover {
     background-color: #e67e00;
     transform: scale(1.05);
 }
 
+/* botão específico para telas de pagamento */
+.btn-pay {
+    width: 100%;
+    padding: 15px;
+    margin-top: 15px;
+}
 /* banner foto arena home*/
 .banner-section {
     background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
@@ -260,6 +493,13 @@ button {
     font-weight: 700; color: #222;
     margin-top: 5px;
 }
+
+.card-title-center {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
 .event-info {
     font-size: 0.9rem;
     color: #666;
@@ -278,13 +518,6 @@ button {
     border-radius: 25px;
     padding: 12px;
     font-weight: 700;
-}
-
-.btn-purchase:disabled {
-    background-color: #ccc !important;
-    color: #777 !important;
-    border: 1px solid #bbb !important;
-    cursor: not-allowed;
 }
 
 /* alerta para quando nao tiver evento */
@@ -311,7 +544,10 @@ button {
     border: 3px solid #FF8C00;
     border-radius: 20px;
     padding: 25px;
+    max-width: 500px; /* Alinhamento para as telas de Auth */
+    margin: 40px auto;
 }
+
 /* espaco para digitar tipo form */
 .form-control {
     width: 100%;
@@ -321,6 +557,10 @@ button {
     margin-bottom: 15px;
     font-family: inherit;
     resize: vertical;
+}
+
+.form-control-group {
+    margin-bottom: 15px;
 }
 
 .btn-outline-dark {
@@ -333,11 +573,12 @@ button {
     background: #222;
     color: white;
 }
-/* mensagens de feedback na sidebar */
+
+/* mensagens de feedback na sidebar / topo */
 .alert {
-    padding: 10px;
+    padding: 15px;
     border-radius: 8px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     font-size: 0.85rem;
     font-weight: 600;
     text-align: center;
@@ -353,11 +594,6 @@ button {
     background-color: #f8d7da;
     color: #721c24;
     border: 1px solid #f5c6cb;
-}
-
-.suggestion-box .btn-outline-dark {
-    width: 100%;
-    margin-top: 10px;
 }
 
 /* detalhes */
@@ -390,11 +626,56 @@ button {
     margin-top: 40px;
 }
 
+.purchase-confirm-box {
+    background: #f9f9f9;
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.total-box {
+    background: #eee;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.total-value {
+    font-size: 1.5rem;
+    color: #28a745;
+}
+.text-success-green,
+.text-success-green span {
+    color: #28a745 !important;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.btn-cancel {
+    background: none;
+    border: none;
+    display: block;
+    text-align: center;
+    width: 100%;
+    margin-top: 15px;
+    color: #999;
+    font-size: 0.85rem;
+}
+
 .btn-back {
     margin-top: 25px;
     display: block;
     font-weight: bold;
     color: #FF8C00;
+}
+
+.label-bold {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.85rem;
 }
 
 /* footer */
